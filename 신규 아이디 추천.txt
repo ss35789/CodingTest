@@ -1,0 +1,45 @@
+import java.util.*;
+
+class Solution {
+    public boolean isValid(char ch){
+        if(ch=='.'||ch=='_'||ch=='-')return true;
+        if(Character.isLetterOrDigit(ch))return true;
+        
+        return false;
+    }
+    public String solution(String new_id) {
+        
+        StringBuilder tmp=new StringBuilder();
+        boolean Dot=false;
+        char[] cArray=new_id.toCharArray();
+        // First step
+        
+        for(char At:cArray){
+            
+            if(isValid(At)==false)continue;
+            if(At!='.')Dot=false;
+            if(At=='.'&&Dot)continue;
+            
+            if(At=='.'){
+                Dot=true;
+                if(tmp.length()==0){Dot=false;continue;}
+                
+            }
+            tmp.append(Character.toLowerCase(At));
+        }
+        if(tmp.length()==0)tmp.append("a");
+        if(tmp.length()>=16)tmp.setLength(15);
+       
+        
+        if(tmp.charAt(tmp.length()-1)=='.')tmp.deleteCharAt(tmp.length()-1);
+        
+        
+         while(tmp.length()<3)tmp.append(tmp.charAt(tmp.length()-1));
+   return tmp.toString();         
+    }                           
+
+        
+        
+    }
+
+//
