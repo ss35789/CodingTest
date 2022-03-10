@@ -32,9 +32,8 @@ s			result
 "23four5six7"	234567
 "2three45sixseven"	234567
 "123"			123
-
+<code>
 import java.util.*;
-
 class Solution {
     public int solution(String s) {
         int answer=0;
@@ -53,3 +52,4 @@ class Solution {
         return answer;
     }
 }
+</code>
