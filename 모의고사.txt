@@ -1,0 +1,73 @@
+import java.util.*;
+class Solution {
+    public ArrayList<Integer> lank(int []answer){
+        ArrayList <Integer>lanker=new ArrayList();
+        int tmp=0;
+        int lank=0;
+        
+        for(int i=0;i<answer.length;i++){
+            if(answer[i]>tmp){ 
+                tmp=answer[i]; //가장 많이 맞춘 순번의 갯수를 tmp에 저장
+                lank=i+1;       //가장 많이 맞춘 순번을 저장
+                lanker.clear(); //이전에 같을때 저장된 순번들 삭제
+            }
+            else if(answer[i]==tmp){
+                lanker.add(i+1); //같다면 순번을 추가저장
+            }
+        }
+        
+        if(lank>0)lanker.add(lank); //가장 많이 맞춘 순번을 추가
+        Collections.sort(lanker);
+        return lanker;
+    }
+    
+    public ArrayList<Integer> solution(int[] answers) {
+        int[] answer = {0,0,0};
+        
+        int [][] Peo={
+            {1,2,3,4,5},
+            {2, 1, 2, 3, 2, 4, 2, 5},
+            {3, 3, 1, 1, 2, 2, 4, 4, 5, 5, }
+            
+        };
+        int Pc=Peo.length;
+        for(int i=0;i<Pc;i++){
+            for(int j=0,c=0;j<answers.length;j++){
+                
+                if(Peo[i][c]==answers[j])answer[i]++;
+                c++;
+                if(c==Peo[i].length)c=0;
+            }
+        }
+        
+//         int [] First={1,2,3,4,5};
+        
+//         int [] Second={2, 1, 2, 3, 2, 4, 2, 5};
+        
+//         int [] Third={3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        
+//         for(int j=0,i=0;j<answers.length;j++){
+//             if(answers[j]==First[i])answer[0]++;
+            
+//             i++;
+//             if(j+1==First.length){i=0;}    
+//         }
+//          for(int j=0,i=0;j<answers.length;j++){
+//             if(answers[j]==Second[i])answer[1]++;
+            
+//             i++;
+//              if(j+1==Second.length){i=0;}  
+//                   //각 순번들의 맞은 갯수를 answer에 저장
+//         }
+//          for(int j=0,i=0;j<answers.length;j++){
+//             if(answers[j]==Third[i])answer[2]++;
+           
+//             i++;
+//              if(j+1==Third.length){i=0;}  
+                  
+//         }
+
+        
+        return lank(answer);
+    }
+}
