@@ -1,0 +1,42 @@
+import java.util.*;
+class Solution {
+    public ArrayList <Integer> solution(int[] numbers) {
+        
+        
+        
+        
+        ArrayList <Integer> list=new ArrayList();
+        final int size=numbers.length;
+        int index=0;
+        list.add(numbers[0]+numbers[1]);
+        
+        for(int i=0;i<size-1;i++){
+            for(int j=i+1;j<size;j++){
+                
+                int hap=numbers[i]+numbers[j];
+                
+                
+                    index++;
+                    list.add(hap);
+                
+            
+            }
+        }
+        Collections.sort(list);
+
+
+        for(int i=0;i<list.size()-1;i++){
+            if(list.get(i)<list.get(i+1))continue;
+            else{
+                list.remove(i+1);
+                i--;
+                
+            }
+        }
+        
+        
+        
+        
+        return list;
+    }
+}
