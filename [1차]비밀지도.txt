@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    
+    public ArrayList<Integer> binary(int a,int n){ // 앞에0을 붙여서 n의 길이만큼 이진수로 출력함 
+        ArrayList<Integer> answer = new ArrayList<>();
+        ArrayList<Integer> answer2 = new ArrayList<>();
+        while(true){
+            answer.add(a%2);
+            a=a/2;
+            if(a==1||a==0){answer.add(a);break;}
+        }
+        if(answer.size()!=n){
+            for(int i=0;i<n-answer.size();i++)
+            answer2.add(0);
+        }
+        
+        for(int i=answer.size()-1;i>=0;i--){
+            answer2.add(answer.get(i));
+        }
+        
+        return answer2;
+    }
+    
+    public ArrayList<String> solution(int n, int[] arr1, int[] arr2) {
+        ArrayList<String> answer=new ArrayList<>();
+        String ex="";
+        String sol = Integer.toBinaryString(5 | 7);
+        System.out.println(sol);
+       for(int i=0;i<n;i++){
+           for(int j=0;j<n;j++){
+               if(binary(arr1[i],n).get(j)==0&&binary(arr2[i],n).get(j)==0){
+                   ex=ex+" ";
+               }
+               else{
+                   ex=ex+"#";
+               }
+           }
+           answer.add(ex);
+           ex="";
+       }
+        return answer;
+    }
+}
