@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] citations) {
+        int answer = 0;
+  
+        Arrays.sort(citations);
+     
+        int n=citations.length;
+        int count=0;
+        int tmp=0;
+        for(int i=0;i<n;i++){
+            
+           while((n-i)>=count){
+               count++;
+               if(citations[i]<count)break;
+           }
+            count--;
+            
+            if(tmp<count)tmp=count;
+            
+            System.out.println(tmp);
+            count=0;
+        }
+        return tmp;
+    }
+}
