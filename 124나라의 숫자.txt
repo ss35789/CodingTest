@@ -1,0 +1,42 @@
+import java.util.*;
+
+class Solution {
+    
+    public ArrayList<Integer> TRE(int number){//3진법 변환 역순
+        ArrayList<Integer> answer=new ArrayList<>();
+        while(number>0){
+            answer.add(number%3);
+            number=number/3;
+        }
+        //Collections.reverse(answer);
+        return answer;
+    }
+    public String solution(int n) {
+        String answer = "";
+        ArrayList<Integer> trelist=TRE(n);
+        for(int i=0;i<trelist.size();i++){
+            if(i!=trelist.size()-1){
+                
+                if(trelist.get(i)==0){
+                    int a=trelist.get(i+1);
+                    trelist.set(i+1,a-1);
+                    trelist.set(i,4);
+                }
+                
+                else if(trelist.get(i)==-1){
+                    int a=trelist.get(i+1);
+                    trelist.set(i+1,a-1);
+                    trelist.set(i,2);
+                }
+            }
+            
+        }
+        Collections.reverse(trelist);
+        
+        for(int i=0;i<trelist.size();i++){
+            if(trelist.get(i)==0)continue;
+            answer+=(trelist.get(i)+"");
+        }
+        return answer;
+    }
+}
