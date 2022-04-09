@@ -1,0 +1,60 @@
+import java.util.*;
+public class Main {
+	static int c=0;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		
+		for(int i=0;i<n;i++) {
+			int x1=sc.nextInt();
+			int y1=sc.nextInt();
+			int x2=sc.nextInt();
+			int y2=sc.nextInt();
+			
+			int circle=sc.nextInt();
+			for(int j=0;j<circle;j++) {
+				int a=sc.nextInt();
+				int b=sc.nextInt();
+				int r=sc.nextInt();
+				
+				if(pass(x1,x2,y1,y2,a,b,r)) {
+					c++;
+				}
+				
+				
+			}
+			System.out.println(c);
+			
+			c=0;
+		}
+		
+	}
+	
+	public static boolean pass(int x1,int x2,int y1, int y2, int a, int b, int r) {
+		
+		double d1,d2;
+		d1= Math.sqrt(Math.pow(a-x1,2)+Math.pow(b-y1,2));
+		d2= Math.sqrt(Math.pow(a-x2,2)+Math.pow(b-y2,2));
+		if(d1<d2) {
+			double tmp;
+			
+			tmp=d1;
+			d1=d2;
+			d2=tmp;
+			
+		}
+		if(d2<r&&r<d1){
+			//d2<r<d1
+			
+			return true;
+			
+		}
+		
+		
+		
+		
+		return false;
+	}
+
+}
