@@ -1,0 +1,41 @@
+import java.util.*;
+
+public class Main {
+	static Integer [][] answer=new Integer[41][2];
+	public static void main(String[] args){
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		
+		StringBuilder sb=new StringBuilder();
+		
+		answer[0][0]=1;
+		answer[0][1]=0;//n=0 일 떄 0은 1번 , 1은 0번 쓰임
+		
+		answer[1][0]=0;
+		answer[1][1]=1;
+		
+		for(int i=0;i<t;i++) {
+			int a=sc.nextInt();
+			fibonacci(a);
+			sb.append(answer[a][0]+" "+answer[a][1]+"\n");
+		
+		}
+
+		
+		System.out.println(sb);
+        sc.close();
+    }
+	
+	public static Integer[] fibonacci(int n) {
+		
+		if(answer[n][0]==null) {
+			answer[n][0]=fibonacci(n-1)[0]+fibonacci(n-2)[0];
+			answer[n][1]=fibonacci(n-1)[1]+fibonacci(n-2)[1];
+		}
+		
+		
+		
+	   return answer[n];
+	}
+
+}
