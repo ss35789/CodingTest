@@ -1,0 +1,39 @@
+import java.util.*;
+
+class Solution {
+
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        
+        LinkedList<Integer> order= new LinkedList<>();
+        for(int i:priorities){
+            order.add(i);
+        }
+        int l=order.size();
+       for(int i=0;i<l;i++){ //모든 값을 인쇄하면 끝
+           
+        for(int j=1;j<order.size();j++){
+
+            if(order.get(0)<order.get(j)){ //맨뒤로 가는 경우가 발생했을때
+                
+                if(location==0)location=order.size()-1; //loction이맨뒤로
+                else{                               //location 한 칸씩 앞으로
+                    location-=1;
+                }
+                order.add(order.removeFirst());
+                j=0;
+                
+            }
+            
+           
+            
+        }// 이 루프에서 앞의 값이 제일 큰 값이 올 때까지 대기목록이 바뀜
+           if(location==0){answer=i+1;break;}//i는 0부터 시작하기에 +1
+           order.removeFirst();
+           location--;//가장 앞에 인쇄하고 나머지 것들 기준 다시 비교시작(반복)
+           
+       }
+        
+        return answer;
+    }
+}
