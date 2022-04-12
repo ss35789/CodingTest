@@ -1,0 +1,59 @@
+import java.util.*;
+public class Main {
+	static char [][]star; 
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		StringBuilder sb=new StringBuilder();
+		
+		star= new char[n][n];
+        for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				star[i][j]=' ';
+			}
+		}
+		sqa(n,0,0,false);
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				sb.append(star[i][j]);
+			}
+			sb.append("\n");
+		}
+		System.out.println(sb);
+		sc.close();
+	}
+	
+	public static void sqa(int n,int x,int y,boolean center) {
+		if(center) {//공백일 경우 받아온 x부터 (아래에서 size를 n으로 받았으니) size(여기서의 n)값까지 n*n의 정사각형을 공백으로 출력
+			for(int i=x;i<x+n;i++) {
+				for(int j=y;j<y+n;j++) {
+					star[x][y]=' ';
+				}
+			}
+			return;
+		}
+		if(n==1) {//더 이상 쪼개지지않으니 * 
+			star[x][y]='*';
+			return;
+		}
+		
+		int size=n/3;//size는 n을 3등분, 즉 분할형태
+		for(int i=x;i<x+n;i+=size) {
+			for(int j=y;j<y+n;j+=size) {//n*n 정사각형을 size*size 의 사각형 9등분
+				if(i==x+size&&j==y+size) {//4번째 사각형을 그린 이후 5번째(가운데 사각형)을 그릴 때 공백으로 만들기(1,1)
+					sqa(size,i,j,true);
+				}
+				else {
+					sqa(size,i,j,false);
+				}
+			}
+				
+		}
+		
+		
+		return;
+	}
+
+}
