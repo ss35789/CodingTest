@@ -1,0 +1,70 @@
+class Solution {
+    static String s;
+    public int solution(String str) {
+        int small=9999;
+        s=str;
+		for(int i=1;i<s.length();i++) {
+			
+			int textsize=cut(i);
+			if(small>textsize) {
+				small=textsize;
+			}
+		}
+		if(s.length()==1)small=1;
+		System.out.println(small);
+        
+        return small;
+    }
+    public static int cut(int n) {
+		
+		
+		String [] cutstr; //A를 넣기 위해 +1, 나누어 떨어지지 않은거 +1
+		if(s.length()%n==0) {
+			cutstr= new String [s.length()/n+1];
+		}
+		else {
+			cutstr=new String [s.length()/n+2];
+		}
+		
+		int k=0;
+			for(int j=0;j<s.length();j+=n) {//문자열을 n개씩 나누어 cutstr에 저장
+				if(j+n>s.length()) {
+					cutstr[k++]=s.substring(j,s.length());// 나누어 떨어지지 않은거 끝에 추가, 나누어 떨어지면 A로 덮어씌워진다.
+					break;
+				}
+				cutstr[k++]=s.substring(j,j+n);
+			}
+			
+			cutstr[cutstr.length-1]="A";//뒤에 더 문자열이 있는지 판별
+		
+		String tmp=cutstr[0];
+		String answer=new String();
+		int c=1;//같은 절이 나온 횟수
+		for(int i=1;i<cutstr.length;i++) {
+			
+			if(tmp.equals(cutstr[i])) {
+				c++;
+				
+				
+			}
+			else {
+				if(c==1) {
+					answer+=tmp;
+				}
+				else {
+					answer=answer+c+tmp;
+				}
+				
+				tmp=cutstr[i];
+				c=1;
+				
+			}
+				
+			
+		}
+		
+		
+		//System.out.println(answer);
+		return answer.length();
+	}
+}
