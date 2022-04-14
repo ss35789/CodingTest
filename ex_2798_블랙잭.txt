@@ -1,0 +1,58 @@
+import java.util.*;
+public class Main {
+	static int clo=99999;
+	static int answer=0;
+	static ArrayList<Integer> list=new ArrayList<>();
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			Scanner sc=new Scanner(System.in);
+			
+			int n=sc.nextInt();
+			int m=sc.nextInt();
+			
+			for(int i=0;i<n;i++) {
+				int x=sc.nextInt();
+				list.add(x);
+			}
+			
+			System.out.println(cal(n,m));
+			
+	}
+	
+	public static int cal(int n,int m) {
+		
+		
+		for(int i=0;i<n;i++) {
+			for(int j=i+1;j<n;j++) {
+				for(int k=j+1;k<n;k++) {
+					int sum=list.get(i)+list.get(j)+list.get(k);
+					if(m==sum) {
+						
+						return sum;
+					}
+					
+					else if(m<sum)continue;
+					else {
+						if(clo>m-sum) {
+							clo=m-sum;
+							answer=sum;
+						}
+						
+					}
+						
+					
+					
+					
+					
+					
+				}
+				
+			}
+			
+		}
+		
+		return answer;
+		
+	}
+
+}
