@@ -1,0 +1,32 @@
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int N=sc.nextInt();
+		boolean maker=false;
+		for(int i=N-54;i<N;i++) {
+			int n=i;
+			int answer=i;
+			int sum=n;
+			
+			while(n!=0) {
+				int a=n%10;
+				sum+=a;
+				n=n/10;
+			}
+			
+			if(sum==N) {
+				maker=true;
+				System.out.println(answer);
+				break;
+			}
+			
+		}
+		
+		if(!maker)System.out.println(0);
+		
+	}
+
+}
