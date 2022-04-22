@@ -1,0 +1,151 @@
+import java.util.Scanner;
+public class Main {
+	static char[][] board;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int N=sc.nextInt();
+		int M=sc.nextInt();
+		int min=999;
+		board=new char[N][M];
+		
+		int count=0;
+		
+		for(int i=0;i<N;i++) {//전체 보드 입력
+			String str=sc.next();
+			for(int j=0;j<M;j++) {
+				char C=str.charAt(j);
+				board[i][j]	= C;
+			}
+		}
+		
+		
+		
+		for(int i=0;i<=N-8;i++) {
+			for(int j=0;j<=M-8;j++) {
+				int num=check(i,j);
+				if(min>num) {
+					min=num;
+				}
+			}
+		}
+		
+		
+		System.out.println(min);
+	}
+	
+	
+	public static char swap(char A) {//타일 고치는 함수
+		char after='a';
+		
+		if(A=='W')after='B';
+		else if(A=='B')after='W';
+		
+		return after;
+	}
+	
+	
+	public static int check(int A,int B) {
+		
+		int answer=0;
+		char testboardA [][]=new char[8][8];
+		char testboardB [][]=new char[8][8];
+		
+		int Acase=0,Bcase=0;
+		
+		for(int i=0,I=0;i<8;i++,I++) {//시작이 'W'인 testboardA와 시작이'B'	인 testboardB 설정
+			for(int j=0,J=0;j<8;j++,J++) {
+				if((i%2==0&&j%2==1)||(i%2==1&&j%2==0)) {
+					testboardA[i][j]='B';
+					testboardB[I][J]='W';
+				}
+				else {
+					testboardA[i][j]='W';
+					testboardB[I][J]='B';
+				}
+					
+				
+				
+					
+			}
+		}
+		
+		
+		
+		for(int i=A,I=0;i<A+8;i++,I++) {
+			for(int j=B,J=0;j<B+8;j++,J++) {
+				
+				if(board[i][j]!=testboardA[I][J]) {
+					Acase++;
+					//System.out.println(board[A][B]+"  : "+testboardA[I][J]);
+				}
+				if(board[i][j]!=testboardB[I][J])Bcase++;
+			}
+			
+		}
+		
+		
+		
+		
+		
+//		for(int i=A,I=0;i<8+A;i++,I++) {
+//			
+//			for(int j=B,J=0;j<8+B;j++,J++) {
+//				
+//				testboardA[I][J]=board[i][j];
+//				testboardB[I][J]=board[i][j];
+//				
+//			}// 한줄이 끝나고 다음줄로 넘어갈때
+//			
+//			
+//		}
+//		
+//		
+//		char pre='W';
+//		for(int i=0;i<8;i++) {
+//			for(int j=0;j<8;j++) {
+//			
+//				if(i==0&&j==0&&testboardA[0][0]=='B') {
+//					Acase++;//고친 회수++
+//					testboardA[i][j]=swap(testboardA[i][j]);
+//				}
+//				if(j==0)continue;// pre 값 맨 앞은 pass
+//				
+//				if(pre==testboardA[i][j]) {
+//					Acase++;//고친 회수++
+//					testboardA[i][j]=swap(testboardA[i][j]);
+//
+//				}
+//				
+//				pre=testboardA[i][j];
+//			}// 한줄이 끝나고 다음줄로 넘어갈때
+//			
+//			
+//		}
+//		
+//		pre='B';
+//		for(int i=0;i<8;i++) {
+//			for(int j=0;j<8;j++) {
+//				if(i==0&&j==0&&testboardB[0][0]=='W') {
+//					Bcase++;//고친 회수++
+//					testboardB[i][j]=swap(testboardB[i][j]);
+//				}
+//				if(j==0)continue;// pre 값 맨 앞은 pass
+//				
+//				if(pre==testboardB[i][j]) {
+//					Bcase++;//고친 회수++
+//					testboardB[i][j]=swap(testboardB[i][j]);
+//				}
+//				
+//				pre=testboardB[i][j];
+//			}// 한줄이 끝나고 다음줄로 넘어갈때
+//			
+//			
+//		}
+//		
+//		
+//		
+		return Acase < Bcase ? Acase:Bcase;
+	}
+
+}
