@@ -1,0 +1,54 @@
+import java.util.*;
+class Solution {
+    public String[] solution(String[] record) {
+        HashMap<String,String> userlist=new HashMap<>();
+		String [] answer;
+        int [] q=new int[record.length];
+		String [] id =new String[record.length];
+		int c=record.length;
+        for(int I=0;I<record.length;I++) {
+			String[] re=new String[3];
+			re=record[I].split(" ");
+			switch(re[0]) {
+			case "Enter":
+				if(userlist.containsKey(re[1])) {
+					userlist.remove(re[1]);
+					
+				}
+				userlist.put(re[1],re[2]);
+				//answer[I]=re[1]+"님이 들어왔습니다.";// uid 님이 들어왔습니다.
+				q[I]=0;
+				id[I]=re[1];
+				break;
+			case "Leave":
+				//answer[I]=re[1]+"님이 나갔습니다.";
+				q[I]=1;
+				id[I]=re[1];
+				break;
+			case "Change":
+				userlist.put(re[1], re[2]);
+				q[I]=2;
+				c--;
+				break;
+			}
+		}
+		
+		answer=new String[c];
+        for(int i=0, I=0;i<q.length;i++,I++) {
+			if(q[i]==0)
+				answer[I]=userlist.get(id[i])+"님이 들어왔습니다.";
+				
+			else if(q[i]==1)
+				answer[I]=userlist.get(id[i])+"님이 나갔습니다.";
+				
+			else
+				I--;
+				
+			
+
+				
+		}
+        
+        return answer;
+    }
+}
