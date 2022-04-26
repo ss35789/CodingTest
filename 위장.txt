@@ -1,0 +1,32 @@
+import java.util.*;
+
+
+class Solution {
+    public int solution(String[][] clothes) {
+        int answer=1;
+        HashMap <String,String> list =new HashMap<>(30);
+        
+        for(int i=0;i<clothes.length;i++){
+                list.put(clothes[i][0],clothes[i][1]);
+        }
+        
+        ArrayList<String> values=new ArrayList<>(list.values());
+        Collections.sort(values);
+        
+        
+        int count=1;
+        if(values.size()==1)return 1;
+        for(int j=0;j<values.size()-1;j++){
+
+            if(values.get(j).equals(values.get(j+1))){count++;}
+            
+            else{answer*=(count+1);count=1;}
+            if(j==values.size()-2)answer*=(count+1);//마지막
+        }
+        
+        //System.out.println(values);
+        
+        
+        return answer-1;
+    }
+}
