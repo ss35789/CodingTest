@@ -1,0 +1,45 @@
+import java.util.Arrays;
+
+class Solution {
+    public int[] solution(String[] id_list, String[] report, int k) {
+        int l =id_list.length;
+		int[] answer=new int[l];
+		int[] reported=new int [l];
+		int [][]record=new int[l][l];
+		for(int i=0;i<report.length;i++) {//report 케이스 r[0]은 신고자, r[1]은 신고당한 사람
+			String [] r=new String[2];
+			r=report[i].split(" ");
+			for(int j=0;j<l;j++) {//신고자의 인덱스 j(id_list[j])
+				if(r[0].equals(id_list[j])){
+					for(int x=0;x<l;x++) {//신고당한 자의 인데스 x (id_list[x])
+						if(r[1].equals(id_list[x])) {
+							
+							record[x][j]=1;
+						}
+					}
+				}
+			}
+		}
+		
+		for(int i=0;i<l;i++) {
+			int count=0;
+				for(int j=0;j<l;j++) {
+                    if(record[i][j]==1)count++;
+                    
+					
+				}
+			if(count>=k){
+                for(int j2=0;j2<l;j2++){
+                    if(record[i][j2]==1)answer[j2]++;
+                }
+                
+            }
+		}
+		
+		
+		
+		
+		
+		return answer;
+    }
+}
