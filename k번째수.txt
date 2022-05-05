@@ -1,0 +1,30 @@
+import java.util.*;
+class Solution {
+    public int[] solution(int[] array, int[][] commands) {
+        int []answer=new int[commands.length];
+        for(int i=0;i<commands.length;i++){
+            int tmp[]= Arrays.copyOfRange(array,commands[i][0]-1,commands[i][1]);
+            Arrays.sort(tmp);
+            answer[i]=tmp[commands[i][2]-1];
+        }
+       
+        
+        
+//         String arr="";
+//         for(int i=0;i<array.length;i++){
+//             arr+=array[i];
+//         }
+    
+//         for(int i=0;i<commands.length;i++){
+//           String A="";
+//              A=arr.substring(commands[i][0]-1,commands[i][1]);
+//             char[] CharA = A.toCharArray();
+//             Arrays.sort(CharA);// 여기서 정렬이 제대로 안된듯?
+//             answer[i]=Integer.valueOf(CharA[commands[i][2]-1]);//CharA[commands[i][2]-1]
+            
+//
+//         }
+       
+        return answer;
+    }
+}

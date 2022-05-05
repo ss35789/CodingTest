@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+
+class Solution {
+    static int [][]p;
+    static int [][]check;
+    public int[] solution(int m, int n, int[][] picture) {
+        int numberOfArea = 0;
+        int maxSizeOfOneArea = 0;
+        check=new int[m][n];
+        p=picture;
+        int[] answer = new int[2];
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(p[i][j]!=0){
+                    if(check[i][j]==0){
+                        int k=field(i,j,m,n);//영역검사 안한 곳만 검사
+                        System.out.println(k);
+                        if(maxSizeOfOneArea<k)maxSizeOfOneArea=k;
+                        numberOfArea++;
+                    }
+                }
+                
+            }
+        }
+
+        answer[0] = numberOfArea;
+        answer[1] = maxSizeOfOneArea;
+        
+        return answer;
+    }
+    
+    public int field(int i, int j, int m,int n){
+        
+        int s=1;
+        check[i][j]=1;//영역검사를 했으면 1
+        
+        if(j<n-1&&check[i][j+1]==0&&p[i][j]==p[i][j+1]){//오른쪽 영역비교
+            s+=field(i,j+1,m,n);
+            
+        }
+        if(0<j&&check[i][j-1]==0&&p[i][j]==p[i][j-1]){//왼쪽 영역비교
+            s+=field(i,j-1,m,n);
+            
+        }
+        if(i<m-1&&check[i+1][j]==0&&p[i][j]==p[i+1][j]){//아래 영역비교       
+            s+=field(i+1,j,m,n);
+            
+        }
+        if(0<i&&check[i-1][j]==0&&p[i][j]==p[i-1][j]){ //위 영역비교           
+            s+=field(i-1,j,m,n);
+            
+        }
+        
+        
+        
+        
+        return s;//영역의 넓이
+        
+    }
+}
