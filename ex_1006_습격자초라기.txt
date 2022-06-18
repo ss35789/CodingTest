@@ -1,18 +1,45 @@
-package ex_1006;
 import java.util.Scanner;
+import java.util.ArrayList;
+
+class data {
+	public int sec1x=0;
+	public int sec1y=0;
+	public int sec2x=0;
+	public int sec2y=0;
+	public int sum=0;
+	
+	public data() {
+		
+	}
+	
+	public data(int sec1x,int sec1y,int sec2x,int sec2y, int sum) {
+		this.sec1x=sec1x;
+		this.sec1y=sec1y;
+		this.sec2x=sec2x;
+		this.sec2y=sec2y;
+		this.sum=sum;
+	}
+	
+	
+	
+	
+}
+
 public class Main {
+	
 	static boolean judge(int W,int x, int y) {
 		if(x+y>W)return false;
 		return true;
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		ArrayList<data> combo=new ArrayList<>();
 		Scanner sc=new Scanner(System.in);
 		int T=sc.nextInt();
 		
 		
 		
-		for(int i=0;i<T;i++) {
+		for(int I=0;I<T;I++) {
 			int answer=0;
 			int N=sc.nextInt();
 			int W=sc.nextInt();
@@ -21,6 +48,8 @@ public class Main {
 			int [][] tagon=new int[2][N];
 			
 			int [][] chk=new int[2][N];
+
+			
 			
 			for(int j=0;j<2;j++) {//tagon 할당
 				for(int j2=0;j2<N;j2++) {
@@ -31,53 +60,83 @@ public class Main {
 			
 			for(int a=0;a<2;a++) {
 				for(int b=0;b<N;b++) {
-					if(chk[a][b]==1)continue; //이미 침투한 구역이라면 패스
+	
+					int tmp=0,A=0,B=0;
 					
-					int tmp=0,A=0,B=0,C=0;
-					chk[a][b]=1; //침투구역표시
 					int z2=b+1; // 인덱스를 원형으로 만들기 위해
-					if(z2>N-1)z2=0;
-					if(chk[a][z2]==0&&judge(W,tagon[a][b],tagon[a][z2])) {//다음 침투구역[a][b+1]과 합이 W이내면 A저장
+					if(b==N-1)z2=0;
+					if(judge(W,tagon[a][b],tagon[a][z2])) {//다음 침투구역[a][b+1]과 합이 W이내면 A저장
 						A=tagon[a][z2]+tagon[a][b];
 					}
 					
-					int z=b-1;
-					if(z<0)z=N-1;
-					if(chk[a][z]==0&&judge(W,tagon[a][b],tagon[a][z])) {//이전 침투구역[a][b-1]과 합이 W이내면 B저장
-						B=tagon[a][z]+tagon[a][b];
-						if(A>B)tmp=A;//비교후 큰 값을 tmp 저장
-						else tmp=B;
+
+					if(a==0&&judge(W,tagon[a][b],tagon[a+1][b])) {//위의 침투구역[a+1][b]과 합이 W이내면 B저장
+						B=tagon[a+1][b]+tagon[a][b];
+						
+					}
+					
+					if(A>B) {
+						data c=new data(a,b,a,z2,A);
+						combo.add(c);
+						
+					}
+					else{
+						if(B!=0) {
+							data c=new data(a,b,a+1,b,B);
+							combo.add(c);
+							
+						}
+						
+						
 					}
 					
 					
 					
-					if(a==0&&chk[a+1][b]==0&&judge(W,tagon[a][b],tagon[a+1][b])) {//위의 침투구역[a+1][b]과 합이 W이내면 C 저장
-						C=tagon[a+1][b]+tagon[a][b];
-						if(B>C)tmp=B;
-						else tmp=C;
+					
+				}
+			}
+
+			data c=new data();
+			while(combo.size()!=0) {
+				
+				int tmp=0;
+				for(int i=0;i<combo.size();i++) {//처음부터 끝까지 Arraylist내 data.sum값 비교
+					
+					
+					if(tmp<combo.get(i).sum) {
+						tmp=combo.get(i).sum;
+						c=combo.get(i);
+						
 					}
 					
-					if(tmp==A)chk[a][z2]=1;//A,B,C 비교한 값 중 제일 큰 값을 동시 침투했다고 선정
-					else if(tmp==B)chk[a][z]=1;
-					else if (tmp==C)chk[a+1][b]=1;
-					
+				}
+
+				if(chk[c.sec1x][c.sec1y]==0&&chk[c.sec2x][c.sec2y]==0) {
+					chk[c.sec1x][c.sec1y]=1;
+					chk[c.sec2x][c.sec2y]=1;
 					answer++;
+					
+					
+				}
+				
+				combo.remove(c);
+
+			}
+			
+			for(int i=0;i<2;i++) {
+				for(int j=0;j<N;j++) {
+					if(chk[i][j]==0)answer++;
 				}
 			}
 			
-			
-//			for(int a=0;a<2;a++) {
-//				for(int j=0;j<N;j++) {
-//					System.out.print(tagon[a][j]+" ");
-//				}
-//				System.out.println("");
-//			}
-			
 			System.out.print(answer);
+			
+			
+
 			
 		}
 		
-		
+		sc.close();
 	}
-
+	
 }
