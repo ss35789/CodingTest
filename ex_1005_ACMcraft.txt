@@ -1,0 +1,89 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		
+		Scanner sc=new Scanner(System.in);
+		
+		
+		int T=sc.nextInt();
+		
+		for(int i=0;i<T;i++) {
+			
+			int N=sc.nextInt();
+			int K=sc.nextInt();
+		
+			int []indegree=new int[N+1];//진입차수
+			int time[]=new int[N+1];//0인덱스는 안씀
+			int result[]=new int[N+1];
+			int [][]reci=new int[N+1][N+1];
+			Queue<Integer>q=new LinkedList<>();
+			
+			for(int j=1;j<=N;j++) {
+				time[j]=sc.nextInt();//각 건물이 지어지는데 걸리는 시간 입력
+				result[j]=time[j];
+			}
+			
+			
+			for(int jj=0;jj<K;jj++) {
+				int A=sc.nextInt();
+				int B=sc.nextInt();
+				reci[A][B]=1;
+				indegree[B]++;
+			}
+			
+			
+			int w=sc.nextInt();
+			//int []visited=new int[N+1];
+			//-----입력--------
+			for(int c=1;c<=N;c++){
+				for(int a=c;a<=N;a++) {//진입차수가 0인 노드를 큐에 삽입
+					if(indegree[a]==0)q.add(a);
+					
+				}
+				if(q.isEmpty())break;
+				int x=q.peek();
+				q.poll();
+				
+				for(int b=1;b<=N;b++) {
+					if(reci[x][b]==1) { // x-> b 경로가 존재할 경우
+						
+						
+						result[b]=Math.max(result[b] , result[x]+time[b]);//전에 합한 건설시간보다 길면 삽입
+						
+						reci[x][b]=0;
+						indegree[b]--;
+					}
+					
+					
+				}
+				
+				
+					
+					
+				
+				
+			}
+			
+			System.out.println(result[w]);
+			
+			
+		}
+
+		
+	}
+	
+	
+
+		
+		
+		
+		
+		
+		
+
+	
+	
+}
