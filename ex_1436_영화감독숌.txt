@@ -1,0 +1,24 @@
+
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		
+		int N=sc.nextInt();
+		int count=0;
+		int t=666;
+		String T="";
+		while(count<=10000) {
+			T=Integer.toString(t);
+			if(T.contains("666"))count++;
+			
+			t++;
+			if(N==count)break;
+		}
+		
+		System.out.print(T);
+	}
+
+}
