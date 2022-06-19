@@ -1,0 +1,38 @@
+package ex_1010;
+import java.util.Scanner;
+public class Main {
+	//(N,M)의 조합 수를 f(N,M)이라 할 떄
+	//f(N,M)=f(N-1,M-1)+f(N-1,M-2)+...+f(N-1,M-n),   N-1 == M-n 이 될때까지 n개가 더해진다.
+	//f(N-1,M-n)의 형태는 재귀함수를 통해 f(1,a)꼴로 바뀔 때까지 반복
+	//f(a,a)=1이고 f(1,a)는 a를 반환한다.
+	public static int SUM(int N,int M) {
+		if(N==1)return M;// f(1,a)인 경우 a값 반환
+		
+		int sum=1;//끝부분에 N-1==i 될경우 +1, f(a,a)인 경우 1 반환
+		
+		for(int i=M-1;N-1!=i;i--) {
+			sum+=SUM(N-1,i);
+		}
+
+		return sum;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		int T=sc.nextInt();
+		
+		for(int i=0;i<T;i++) {
+			
+			int N=sc.nextInt();
+			int M=sc.nextInt();
+			
+			
+			
+			System.out.println(SUM(N,M));
+		}
+		
+		
+		
+	}
+
+}
