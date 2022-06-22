@@ -1,0 +1,72 @@
+package ex_1012;
+import java.util.Scanner;
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		
+		int T=sc.nextInt();
+		
+		for(int i=0;i<T;i++) {
+			int M=sc.nextInt();
+			int N=sc.nextInt();
+			int K=sc.nextInt();
+			int [][] array=new int[N][M];
+			int [][] chk=new int[N][M];
+			int count=0;//answer
+			for(int j=0;j<K;j++){
+				int X=sc.nextInt();
+				int Y=sc.nextInt();
+				array[Y][X]=1;
+				
+			}
+			
+			
+			for(int I=0;I<N;I++) {
+				for(int J=0;J<M;J++) {
+					if(chk[I][J]==0) {
+						chk[I][J]=1;
+						
+						if(array[I][J]==1) {
+							count++;
+							
+							search(array,chk,I,J);
+						}
+						
+					}
+				}
+			}
+			
+			
+			System.out.println(count);
+			
+		}
+	}
+	
+	public static void search(int [][]array,int [][]chk,int y, int x) {
+		
+		if(x< array[0].length-1&&chk[y][x+1]==0&&array[y][x+1]==1) {
+			chk[y][x+1]=1;
+			search(array,chk,y,x+1);	
+		}
+		
+		if(x >0&&chk[y][x-1]==0&&array[y][x-1]==1) {
+			chk[y][x-1]=1;
+			search(array,chk,y,x-1);
+		}
+		if(y>0&&chk[y-1][x]==0&&array[y-1][x]==1) {
+			chk[y-1][x]=1;
+			search(array,chk,y-1,x);
+		}
+		if(y< array.length-1&&chk[y+1][x]==0&&array[y+1][x]==1) {
+			chk[y+1][x]=1;
+			search(array,chk,y+1,x);
+		}
+		
+		
+		
+		return;
+	}
+
+}
