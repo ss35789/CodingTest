@@ -1,0 +1,51 @@
+import java.util.*;
+
+public class Main {
+	public static int numlen(int v) {
+		int c=0;
+		while(v!=0) {
+			v/=10;
+			c++;
+			
+		}
+		return c;
+	}
+	public static void main(String[] args) {
+		
+		
+		Scanner sc=new Scanner(System.in);
+		int T=1;
+		while(true) {
+			
+			T=sc.nextInt();
+			int value=T;
+			if(value==0)break;
+			
+			int len=numlen(T)-1;
+			int tmp=0;
+			
+			while(T!=0) {
+				
+			tmp+=(T%10)*Math.pow(10, len--);
+			
+			T/=10;
+			
+	
+			
+			}
+			
+			if(tmp==value)System.out.println("yes");
+			else
+				System.out.println("no");
+			
+			
+			
+		}
+
+		
+	}
+	
+
+}
+
+https://www.acmicpc.net/problem/1259
