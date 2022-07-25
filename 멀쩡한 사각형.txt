@@ -1,0 +1,28 @@
+class Solution {
+    public static long GCD(long a, long b){ // 최대공약수
+	if (a%b == 0) {
+		return b;
+	}
+	return GCD(b, a % b);
+    }
+    
+    public long solution(long w, long h) {
+        long answer = 1;
+       
+        answer=w*h-(w+h-GCD(w,h));
+            
+        
+        return answer;
+    }
+   
+}
+
+// W=H :  W개 사용못함
+            
+// W<H<=2W : 2W개 사용못함
+            
+//2W<H<=3W : 3W개 사용못함
+//...
+
+
+//https://school.programmers.co.kr/learn/courses/30/lessons/62048#
