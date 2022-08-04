@@ -1,0 +1,78 @@
+//land의 두 번째행부터 시작,
+//land[1][0]과 land[0][0](같은 열)을 제외한 land[0]의 값들중 가장 합이 큰 값을 land[1][0]에 덮어씌우기
+//마찬가지로 land[1][1], land[1][2],land[1][3] 에도 같은 방식으로 덮어씌움
+// land[2]에서도 land[1]에서 덮어씌운 값들중에 같은 열을 제외한 나머지 들중 합이 제일 큰 것을 덮어씌우는 과정 반복
+//land[land.length-1] 까지 반복하면 마지막 행 중 가장 큰 값이 answer
+
+class Solution {
+    
+    int solution(int[][] land) {
+        int answer=0;
+        for(int i=1;i<land.length;i++){//land의 두번째 행부터 끝까지 반복
+            
+            for(int j=0;j<4;j++){//덮어씌울 행들의 열번호들
+                int big=0;
+                for(int k=0;k<4;k++){//덮어씌울 행들의 위의 행들의 열번호들
+                    if(j==k)continue;
+                    if(land[i][j]+land[i-1][k]>big)big=land[i][j]+land[i-1][k];
+                    //합중에 가장 큰 값찾기
+                }
+                land[i][j]=big;//덮어씌우기
+            }
+            
+        }
+        for(int i=0;i<4;i++){
+            if(land[land.length-1][i]>answer)answer=land[land.length-1][i];
+        }//마지막 행 중 가장 큰 값이 answer
+        return answer;
+    }
+}
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/12913
+
+// class Solution {
+//     int last=0;// 함수의 마지막 세번째 행 중에서 밟은 열의 번호
+//     public int compare(int []a, int []b, int[]c){
+//         int target=0;
+//         int big=0;
+//         for(int i=0;i<4;i++){
+//             if(last==i)continue;
+//             for(int j=0;j<4;j++){
+//                 if(i==j)continue;//연속으로 같은 열을 밟는 경우는 패스
+//                 for(int k=0;k<4;k++){
+//                     if(j==k)continue;//연속으로 같은 열을 밟는 경우는 패스
+//                     if(a[i]+b[j]+c[k]>big){
+//                         big=a[i]+b[j]+c[k];
+//                         target=a[i];
+//                         last=i;
+//                     }
+                    
+//                 }
+//             }
+//         }
+//         System.out.print(target);
+//         return target;
+//     }
+    
+//     int solution(int[][] land) {
+//         int answer = 0;
+//         int l=land.length;
+//         int big=0;
+//         for(int i=0;i<l-2;i++){
+//             answer+=compare(land[i],land[i+1],land[i+2]);
+//         }
+//         for(int i=0;i<4;i++){
+//             if(i==last)continue;
+//             for(int j=0;j<4;j++){
+//                 if(i==j)continue;
+//                 if(land[l-2][i]+land[l-1][j]>big){
+//                     big=land[l-2][i]+land[l-1][j];
+//                 }
+//             }
+//         }
+//         answer+=big;
+//         System.out.print(big);
+//         return answer;
+//     }
+// }

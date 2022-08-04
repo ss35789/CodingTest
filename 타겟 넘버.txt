@@ -1,0 +1,28 @@
+class Solution {
+    static int count=0;
+    static int [] n=new int[20];
+    public void dfs(int dep,int target, int result ){
+        if(dep==n.length){
+            if(result==target){
+                count++;
+                
+            }
+            return;
+        }
+        int add = result + n[dep];
+        int sub = result - n[dep];
+        
+        dfs(dep+1,target,add);
+        dfs(dep+1,target,sub);
+        
+    }
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        n=numbers;
+        dfs(0,target,0);
+        answer=count;
+        return answer;
+    }
+}
+
+https://school.programmers.co.kr/learn/courses/30/lessons/43165
