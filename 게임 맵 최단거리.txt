@@ -1,0 +1,53 @@
+import java.util.*;
+
+class Solution {
+    
+    public int solution(int[][] maps) {
+        int answer=0;
+        Queue<Position> pathQu=new LinkedList<>();
+        
+        int [][] move ={{0,1},{1,0},{-1,0},{0,-1}};
+        int [][] count =new int[maps.length][maps[0].length];// 경로마다 밟은 노드 수
+        
+        pathQu.add(new Position(0,0));//처음 위치
+        count[0][0]=1;
+        
+        while(!pathQu.isEmpty()){
+            
+            Position curp= pathQu.poll(); //현재 위치는 큐의 처음
+            if(curp.x==maps[maps.length-1].length-1&&curp.y==maps.length-1)break;
+           
+            
+            for(int i=0;i<4;i++){// 네 방향
+                
+                Position p = new Position(curp.x+move[i][0],curp.y+move[i][1]);
+                
+                if( p.x<0||p.x==maps[0].length||
+                    p.y<0||p.y==maps.length)continue;// 맵 밖이거나 갈 위치가 벽일때는 패스
+                
+                if(maps[p.y][p.x]==0)continue;
+                
+                
+                count[p.y][p.x]=count[curp.y][curp.x]+1;
+                maps[p.y][p.x]=0;// 현재 위치는 벽으로 만들어 방문한 곳은 다시 못옴
+                pathQu.add(p);
+            }
+        
+        }
+        
+        
+        answer=count[maps.length-1][maps[maps.length-1].length-1];
+        if(answer==0)answer=-1;
+        return answer;
+    }
+}
+
+class Position{
+    Position(int x,int y){
+        this.x=x;
+        this.y=y;
+    }
+    int x,y;
+}
+
+https://school.programmers.co.kr/learn/courses/30/lessons/1844
