@@ -1,0 +1,20 @@
+import java.util.*;
+
+class Solution {
+  
+    public int solution(int n) {
+        int answer = 0;
+        for(int i=n+1;;i++){
+            if(Integer.bitCount(n)==Integer.bitCount(i)){
+                answer=i;
+                break;
+            }
+            
+        }
+        return answer;
+    }
+}
+
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/12911
