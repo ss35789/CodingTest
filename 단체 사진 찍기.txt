@@ -1,0 +1,50 @@
+
+import java.util.*;
+class Solution {
+    public String[] users= {"A", "C", "F", "J", "M", "N", "R", "T"};
+    public int answer = 0;
+    
+    public boolean ruleCheck(String[] data,String userComb){//조건 맞는지 확인
+        for(int i=0;i<data.length;i++){
+            int Ia = userComb.indexOf(data[i].charAt(0));
+            int Ib = userComb.indexOf(data[i].charAt(2));
+            char oper=data[i].charAt(3);
+            int value=data[i].charAt(4)-'0';
+            if(oper=='='){
+                if(!(Math.abs(Ia-Ib)-1==value))return false;
+            }else if(oper=='<') {
+                if(!(Math.abs(Ia-Ib)-1<value))return false;
+            }else if(oper =='>'){
+                if(!(Math.abs(Ia-Ib)-1>value))return false;
+            }
+        }
+        return true;
+    }
+    public void dfs(String userComb, String[] data,boolean []visited){
+        if(userComb.length()==users.length){
+            if(ruleCheck(data, userComb)){
+                answer++;
+            }
+            return;
+        }
+        
+        
+        for(int i=0;i<users.length;i++){
+            if(!visited[i]){
+                visited[i]=true;
+                String comb=userComb+users[i];
+                dfs(comb, data,visited);
+                visited[i]=false;
+            }      
+        }
+    }
+    public int solution(int n, String[] data) {
+        boolean[] visited = new boolean[8];
+        dfs("",data,visited);
+
+        return answer;
+    }
+}
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/1835
