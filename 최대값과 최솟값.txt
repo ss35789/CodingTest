@@ -1,0 +1,17 @@
+class Solution {
+    public String solution(String s) {
+        String answer = "";
+        int min=99999;
+        int max=-99999;
+        String [] number = s.split(" ");
+        for(String i : number){
+            if(min > Integer.valueOf(i))min=Integer.valueOf(i);
+            if(max <  Integer.valueOf(i))max=Integer.valueOf(i);
+        }
+        answer=min+" "+max;
+        return answer;
+    }
+}
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/12939

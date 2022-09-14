@@ -1,0 +1,51 @@
+import java.util.*;
+
+class Solution {
+    
+    static int [] arr;
+    static boolean [] visited;
+    static HashSet<Integer> set;
+    
+    public boolean Prime(int value){
+        for(int i=2;i<=Math.sqrt(value);i++){
+            if(value%i==0)return false;
+        }
+    
+        return true;
+    }
+    public void dfs(int normalData,int index){
+        
+        if(visited[index])return;
+        
+        if(Prime(normalData)&&
+           normalData!=1&&normalData!=0)set.add(normalData);
+
+        for(int i=0;i<arr.length;i++){
+            visited[index]=true;
+            dfs(normalData*10+arr[i], i);
+            visited[index]=false;
+        }
+        
+        
+        
+    }
+    public int solution(String numbers) {
+        int answer=0;
+        arr=new int[numbers.length()];
+        visited =new boolean[numbers.length()];
+        set=new HashSet<>();
+        
+        for(int i=0;i<numbers.length();i++){
+            arr[i]=numbers.charAt(i)-'0';
+
+        }
+        for(int i=0;i<numbers.length();i++){
+            dfs(arr[i],i);
+        }
+        
+        answer=set.size();
+        return answer;
+    }
+}
+
+https://school.programmers.co.kr/learn/courses/30/lessons/42839
