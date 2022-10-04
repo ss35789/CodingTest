@@ -1,0 +1,30 @@
+import java.util.*;
+class Solution {
+    public static int Xzero=0;
+    public String bina (String v){
+        int count=0;
+        int l=v.length();
+        for(int i=0;i<l;i++){
+            if(v.startsWith("0")){
+                Xzero++; // 0이면 
+            }
+            else
+                count++; // 1이면
+            v=v.substring(1); // 맨 앞부터 없앰
+        }
+        return Integer.toBinaryString(count);
+    }
+    public int[] solution(String s) {
+        int[] answer = new int[2];
+        int page=0;
+        while(!s.equals("1")){
+            s=bina(s);
+            page++;
+        }
+        answer[0]=page;
+        answer[1]=Xzero;
+        return answer;
+    }
+}
+
+https://school.programmers.co.kr/learn/courses/30/lessons/70129

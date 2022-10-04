@@ -1,0 +1,21 @@
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        int sum=0, start =1;
+        while(start<=n){
+
+            for(int i=start;i<=n;i++){
+                sum+=i;
+                if(sum>n)break;
+                else if (sum == n)answer++;
+            }
+            start++;
+            sum=0;
+        }
+        
+        return answer;
+    }
+}
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/12924

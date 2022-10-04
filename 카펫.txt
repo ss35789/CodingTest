@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public int[] solution(int brown, int yellow) {
+        int[] answer = new int[2];
+        int sum=brown + yellow;
+        int a,b; // 가로, 세로
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(int i=1;i<sum;i++){
+            if(sum%i==0)arr.add(i); //1부터 b+y의 약수 찾기
+        }
+        for(int v : arr){
+            a=v;
+            b=sum/a;
+            if(brown==(a+a+b+b-4)){//모서리의 합이 갈색 수 와 같으면 a와 b 중 긴 것이 가로
+                if(a>=b){
+                    answer[0]=a;
+                    answer[1]=b;
+                }
+                else{
+                    answer[0]=b;
+                    answer[1]=a;
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
+
+https://school.programmers.co.kr/learn/courses/30/lessons/42842
