@@ -1,0 +1,46 @@
+import java.util.*;
+class Solution {
+
+    public Boolean compare(String skill, String skill_tree){
+        char []ch_skill=skill.toCharArray(); 
+        char []ch_skill_tree=skill_tree.toCharArray();
+        int []check= new int[skill.length()]; 
+        // skill_tree 에서 skill중에 배운게 있다면 해당 번째 ch_skill 체크
+        int recordskill =-1;
+        // skill_tree에서 skill과 일치하는 문자가 나오면 이전보다 큰 인덱스에 있는지 체크하는 변수
+        boolean end= false;
+        // check가 계속 1 (배운스킬)이 나오다가 0(안배운 스킬)이 나온 이후 다시 1이 나오는지 확인하는 변수
+        for(int j=0;j<skill.length();j++){//skill을 돌면서
+            for(int i=0;i<skill_tree.length();i++){// skill_tree 순회
+                if(ch_skill[j] == ch_skill_tree[i]){
+                    if(recordskill<i){
+                        recordskill=i;
+                        check[j]=1;
+                    }
+                    else
+                        return false;
+                }
+            }
+            
+        }
+        
+        for(int ch : check){
+            if(end&&ch==1)return false;
+            if(ch==0)end=true;
+            
+        }
+        return true;
+    }
+    
+    public int solution(String skill, String[] skill_trees) {
+        int answer = 0;
+       
+        for(String skill_tree : skill_trees){
+            if(compare(skill, skill_tree))answer++;
+        }
+
+        return answer;
+    }
+}
+
+https://school.programmers.co.kr/learn/courses/30/lessons/49993
