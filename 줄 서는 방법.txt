@@ -1,0 +1,66 @@
+import java.util.*;
+
+class Solution {
+    static ArrayList<Integer> arr = new ArrayList<>();
+    public void cal(int n, long k, long cases){
+        if(n==2){
+            if(k==1){
+                arr.add(1);
+                
+            }else{
+                arr.add(2);
+            }
+            arr.add(1);
+            return;
+        }
+        long phase=0;
+        int first=0;
+        
+        phase = cases/n; // phase는 맨 앞 숫자를 제외한 나머지의 경우의 수의 갯수
+        
+        first = (int)(k/phase);// 나누어 떨어지지 않으면 +1
+        if(k%phase != 0)first++;
+        
+        arr.add(first);
+        cal(n-1, k-(phase*(first-1)), cases/n);
+        
+        
+    }
+    
+    public int[] solution(int n, long k) {
+        int[] answer = new int[n];
+        Boolean[] check = new Boolean[n];
+        long cases = 1;
+        for(int i=0;i<n;i++){
+            check[i]=false;
+        }
+        for(int i=1;i<=n;i++){
+            cases*=i;
+        }
+        cal(n,k,cases);
+        for(int i=0;i<arr.size();i++){
+            int value = arr.get(i);
+            int count = 0;
+            
+            for(int j=0;j<n;j++){
+                if(!check[j])count++;
+                if(count == value){
+                    check[j]=true;
+                    answer[i]=j+1;
+                    break;
+                }
+            }
+            
+        }
+
+        
+        return answer;
+    }
+}
+
+
+
+
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/12936#
