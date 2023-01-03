@@ -1,0 +1,32 @@
+import java.util.*;
+
+
+class Solution {
+    public int solution(int storey) {
+        int answer = 0;
+        int st = storey, second, compare;
+        ArrayList<Integer> arr = new ArrayList<>();
+        while(st>0){
+            arr.add(st%10);
+            st/=10;
+        }
+        for(int i=0;i<arr.size()-1;){
+            second = arr.get(i+1);
+            compare = 4;
+            if(second < 5) compare = 5;
+            //현재 계산하는 수의 앞자리가 5이상이면 현재가 5이상일때부터 앞으로 1넘겨주고 10-arr.get(i)
+            //5 미만이면 현재가 6이상일 때부터 ``
+            if(arr.get(i)>compare){
+                answer+= (10-arr.get(i));
+                arr.remove(i);
+                arr.set(0,second+1);
+            }else{
+                answer += arr.get(i);
+                arr.remove(i);
+            }
+        }
+        answer += (arr.get(0) > 5 ? (10 - arr.get(0) + 1) : arr.get(0));
+        //맨 앞자리가 6이상이면 앞에 1붙이고 10- 맨 앞자리수 만큼 더하기
+        return answer;
+    }
+}
