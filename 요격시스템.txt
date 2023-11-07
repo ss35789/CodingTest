@@ -1,0 +1,30 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[][] targets) {
+        int answer = 0;
+        Arrays.sort(targets, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o2[1]-o1[1];
+                // e좌표 기준 내림차순
+            }
+        });
+        
+        double last=100000001;
+        for(int [] target : targets){
+            if(last >= target[1]){ // 다음 target의 e좌표가 last보다 앞일 경우 새로 쏘고 last 갱신
+                last = target[0]+0.1;
+                answer++;
+            }
+            else if(last < target[0]){//다음 target의 s좌표가 last보다 뒤에 있는경우(이전 범위에 포함되어 있는 경우) last만 갱신
+                last = target[0]+0.1;
+            }else{
+                continue;
+            }
+            
+            
+        }
+        return answer;
+    }
+}
