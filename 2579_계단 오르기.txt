@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int stairCount = sc.nextInt();
+        int[] stairScore = new int[stairCount];
+        for(int i = 0; i < stairCount; i++){
+            stairScore[i] = sc.nextInt();
+        }
+
+        System.out.println(maxScore(stairScore));
+        sc.close();
+    }
+
+    public static int maxScore(int[] scores) {
+        int n = scores.length;
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return scores[0];
+        }
+        if (n == 2) {
+            return scores[0] + scores[1];
+        }
+
+        int[] dp = new int[n]; // dp[n]은 n번째 점수를 포함한 최대점수
+        dp[0] = scores[0];
+        dp[1] = scores[0] + scores[1];
+        dp[2] = Math.max(scores[0] + scores[2], scores[1] + scores[2]);
+
+        for (int i = 3; i < n; i++) {
+            dp[i] = Math.max(dp[i - 2], dp[i - 3] + scores[i - 1]) + scores[i];
+        }
+
+        return dp[n - 1];
+    }
+}
