@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt();
+        int[] list = new int[size];
+        
+        for (int i = 0; i < size; i++) {
+            list[i] = sc.nextInt();
+        }
+        
+        System.out.println(lengthOfLIS(list));
+        sc.close();
+    }
+
+    public static int lengthOfLIS(int[] nums) {
+        if (nums.length == 0) return 0;
+        
+        ArrayList<Integer> lis = new ArrayList<>();
+        
+        for (int num : nums) {
+            if (lis.size() == 0 || num > lis.get(lis.size() - 1)) {
+                lis.add(num);
+            } else {
+                int pos = binarySearch(lis, num);
+                lis.set(pos, num);
+            }
+        }
+        
+        return lis.size();
+    }
+
+    private static int binarySearch(ArrayList<Integer> lis, int target) {
+        int low = 0, high = lis.size() - 1;
+        while (low < high) {
+            int mid = (low + high) / 2;
+            if (lis.get(mid) < target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+}
