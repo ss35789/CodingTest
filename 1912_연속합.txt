@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class Main {
+    public static int max_value;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int numberCount = sc.nextInt();
+        int[] nums = new int[numberCount];
+        int[] dp = new int[numberCount];
+        
+        for (int i = 0; i < numberCount; i++) {
+            nums[i] = sc.nextInt();
+        }
+        
+        dp[0] = nums[0];
+        max_value = nums[0];
+        
+        for (int i = 1; i < numberCount; i++) {
+            if (dp[i - 1] <= 0) {
+                dp[i] = nums[i];
+            } else {
+                dp[i] = dp[i - 1] + nums[i];
+            }
+            if (dp[i] > max_value) {
+                max_value = dp[i];
+            }
+        }
+        
+        System.out.println(max_value);
+        sc.close();
+    }
+}
