@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main{
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int numsCase = sc.nextInt();
+        int n;
+        long[] dp = new long[101];
+        int[] answer = new int[numsCase];
+
+        //입력
+        for(int i=0;i<numsCase;i++){
+            n=sc.nextInt();   
+            answer[i] = n;
+        }
+
+
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 1;
+        dp[3] = 1;
+        dp[4] = 2;
+        dp[5] = 2;
+        dp[6] = 3;
+
+
+        //홀수 1,1,2,4,7,12
+        //짝수 1,2,3,5,9
+
+        for(int i=7;i<dp.length;i++){
+            dp[i] = dp[i-1] + dp[i-5];
+        }
+
+        for(int i=0;i<numsCase;i++){
+            System.out.println(dp[answer[i]]);
+        }
+        
+    }
+}
