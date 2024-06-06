@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class MaxProfit {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+
+        int[] T = new int[N + 1];
+        int[] P = new int[N + 1];
+        int[] dp = new int[N + 1];
+
+        for (int i = 1; i <= N; i++) {
+            T[i] = sc.nextInt();
+            P[i] = sc.nextInt();
+        }
+
+        for (int i = 1; i <= N; i++) {
+            // 현재까지의 최대 수익 갱신
+            if (i + T[i] - 1 <= N) {
+                dp[i + T[i] - 1] = Math.max(dp[i + T[i] - 1], dp[i - 1] + P[i]);
+            }
+            // 현재 날의 수익을 다음 날로 전파
+            dp[i] = Math.max(dp[i], dp[i - 1]);
+        }
+
+        // 최대 수익 출력
+        System.out.println(dp[N]);
+
+        sc.close();
+    }
+}
