@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        
+        long[] dp = new long[N + 1];
+        
+        // 초기값 설정
+        dp[1] = 1;
+        if(N > 1)
+            dp[2] = 1;
+        
+        // 점화식을 이용하여 이친수의 개수 계산
+        for(int i = 3; i <= N; i++) {
+            dp[i] = dp[i-1] + dp[i-2];
+        }
+        
+        System.out.println(dp[N]);
+    }
+}
