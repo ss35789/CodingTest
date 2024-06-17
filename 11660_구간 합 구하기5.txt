@@ -46,3 +46,54 @@ public class Main {
         System.out.print(sb.toString());
     }
 }
+
+
+
+// import java.util.*;
+// import java.lang.*;
+// import java.io.*;
+
+// // The main method must be in a class named "Main".
+// public class Main {
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+//         int N = sc.nextInt();
+//         int M = sc.nextInt();
+
+//         //(1 ≤ N ≤ 1024, 1 ≤ M ≤ 100,000)
+        
+        
+//         int[][] arr = new int[N+1][N+1];
+//         int[][] dp = new int[N+1][N+1];
+
+            
+//         for(int x=1;x<N+1;x++){
+//             for(int y=1;y<N+1;y++){
+//                 arr[x][y] = sc.nextInt();
+//                 dp[x][y] =  dp[x-1][y] + dp[x][y-1] - dp[x-1][y-1] + arr[x][y];
+//             }
+                
+//         } 
+        
+
+//         for(int i=1;i<N+1;i++){
+//             for(int j=1;j<N+1;j++){
+//                 System.out.print(arr[i][j]+" ");
+//             }
+//             System.out.print("\n");
+//         }
+//         //(x1 ≤ x2, y1 ≤ y2)
+        
+//         for(int i=0;i<M;i++){
+//             int x1 = sc.nextInt();
+//             int y1 = sc.nextInt();
+//             int x2 = sc.nextInt();
+//             int y2 = sc.nextInt();
+    
+                
+
+//             System.out.println(dp[x2][y2] - dp[x1-1][y2] - dp[x2][y1-1] + dp[x1-1][y1-1]);
+            
+//         }
+//     }
+// }
