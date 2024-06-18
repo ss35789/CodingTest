@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // 입력받기
+        int N = sc.nextInt();
+        int[] A = new int[N];
+        for (int i = 0; i < N; i++) {
+            A[i] = sc.nextInt();
+        }
+        
+        // dp[i]는 A[i]를 마지막 원소로 가지는 증가하는 부분 수열의 최대 합
+        int[] dp = new int[N];
+        
+        // 초기화: 각 원소 하나만으로 구성된 부분 수열의 합은 그 원소 자체
+        for (int i = 0; i < N; i++) {
+            dp[i] = A[i];
+        }
+        
+        // 동적 계획법 적용
+        for (int i = 1; i < N; i++) {
+            for (int j = 0; j < i; j++) {
+                if (A[i] > A[j] && dp[i] < dp[j] + A[i]) {
+                    dp[i] = dp[j] + A[i];
+                }
+            }
+        }
+        
+        // dp 배열 중에서 최대값 찾기
+        int maxSum = dp[0];
+        for (int i = 1; i < N; i++) {
+            if (dp[i] > maxSum) {
+                maxSum = dp[i];
+            }
+        }
+        
+        // 결과 출력
+        System.out.println(maxSum);
+    }
+}
