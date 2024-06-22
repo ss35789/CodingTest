@@ -1,0 +1,36 @@
+import java.util.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n= sc.nextInt();
+        int[] arr = new int[n];
+        int[] tmpArr = new int[n];
+
+        Map<Integer ,Integer> tmpMap = new HashMap<>();
+
+        for(int i=0;i<n;i++){
+            arr[i] = sc.nextInt();
+            tmpArr[i] = arr[i];
+        }
+        Arrays.sort(tmpArr);
+        
+       
+        for(int i=0,index=0;i<n;i++,index++){
+            
+            if(i>0 && tmpArr[i-1] == tmpArr[i]){
+                index--;
+                continue;
+            }
+            tmpMap.put(tmpArr[i], index);
+        }
+
+        StringBuilder str = new StringBuilder();
+        for(int i : arr){
+            str.append(tmpMap.get(i)+" ");
+        }
+        System.out.println(str);
+
+    }
+}
