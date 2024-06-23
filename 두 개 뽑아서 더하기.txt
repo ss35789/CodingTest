@@ -1,42 +1,31 @@
 import java.util.*;
-class Solution {
-    public ArrayList <Integer> solution(int[] numbers) {
-        
-        
-        
-        
-        ArrayList <Integer> list=new ArrayList();
-        final int size=numbers.length;
-        int index=0;
-        list.add(numbers[0]+numbers[1]);
-        
-        for(int i=0;i<size-1;i++){
-            for(int j=i+1;j<size;j++){
-                
-                int hap=numbers[i]+numbers[j];
-                
-                
-                    index++;
-                    list.add(hap);
-                
-            
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int n= sc.nextInt();
+        int[] arr = new int[n];
+        int count = 0;
+
+        for(int i=0;i<n;i++){
+            arr[i] = sc.nextInt();
+        }
+        int x = sc.nextInt();
+
+        Arrays.sort(arr); // arr 정렬
+
+        for(int i=0;i<n;i++){
+            if(arr[i] >= x) break;
+            for(int j=n-1;j>i;j--){
+                if(arr[i] + arr[j] == x){
+                    count++;
+                    break;
+                    //System.out.println(arr[i]+" "+arr[j]);
+                }
+                else if(arr[i] + arr[j] < x)break;
             }
         }
-        Collections.sort(list);
-
-
-        for(int i=0;i<list.size()-1;i++){
-            if(list.get(i)<list.get(i+1))continue;
-            else{
-                list.remove(i+1);
-                i--;
-                
-            }
-        }
-        
-        
-        
-        
-        return list;
+        System.out.println(count);
     }
 }
