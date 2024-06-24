@@ -1,0 +1,12 @@
+-- 코드를 작성해주세요
+SELECT d.ID, d.EMAIL, d.FIRST_NAME, d.LAST_NAME
+FROM DEVELOPERS d
+
+WHERE d.SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = 'PYTHON')
+    OR d.SKILL_CODE & (SELECT CODE FROM SKILLCODES WHERE NAME = 'C#')
+ORDER BY d.ID ASC;
+
+
+
+
+https://school.programmers.co.kr/learn/courses/30/lessons/276034
