@@ -1,0 +1,73 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) throws IOException{
+        //Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = Integer.parseInt(br.readLine());
+        }
+        Arrays.sort(arr);
+
+        StringBuilder sb =new StringBuilder();
+        sb.append(calculateArithmeticMean(arr)+"\n");
+        sb.append(calculateMedian(arr)+"\n");
+        sb.append(calculateMode(arr)+"\n");
+        sb.append(calculateRange(arr));
+        System.out.print(sb);
+        
+    }
+
+    //산술평균
+    public static int calculateArithmeticMean(int[] arr){
+        int sum=0;
+        for(int i: arr){
+            sum+=i;
+        }
+        
+        return (int)Math.round((double)sum/arr.length);
+    }
+
+    //중앙값
+    public static int calculateMedian(int[] arr){
+   
+         return arr[arr.length/2];
+    } 
+
+    //최빈값
+    public static int calculateMode(int[] arr){
+        int count = 1, max_count=1;
+        List<Integer> list = new ArrayList<>();
+        if(arr.length > 1)list.add(arr[1]); //모든 수가 한 번씩만 올경우 두번째로 작은 수가 return되도록
+        else{
+            list.add(arr[0]);
+        }
+       for(int i=1;i<arr.length;i++){
+           if(arr[i-1] == arr[i]){
+               count++;
+               if(max_count < count){
+                   max_count = count;
+                   list.clear();
+                   list.add(arr[i]);
+               }else if(max_count == count){
+                   list.add(arr[i]);
+               }
+               
+           }else{
+               count=1;
+           }
+       }
+        
+         return list.size() > 1 ? list.get(1) : list.get(0);
+    }
+
+    //범위
+    public static int calculateRange(int[] arr){
+         return arr[arr.length-1]-arr[0];
+    }
+}
