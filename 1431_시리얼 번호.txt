@@ -1,51 +1,57 @@
 import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-public class Main {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sc.nextLine(); // 개행 문자 소비
-
-        String[] serials = new String[n];
-        for (int i = 0; i < n; i++) {
-            serials[i] = sc.nextLine();
+// The main method must be in a class named "Main".
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n= Integer.parseInt(br.readLine());
+        String[] serialNumbers = new String[n];
+        for(int i=0;i<n;i++){
+            serialNumbers[i] = br.readLine();
         }
 
-        Arrays.sort(serials, new Comparator<String>() {
+        solutionSort(serialNumbers);
+        StringBuilder sb = new StringBuilder();
+
+        for(String serial : serialNumbers){
+            sb.append(serial).append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    public static void solutionSort(String[] arr){
+        Arrays.sort(arr, new Comparator<String>() {
             @Override
-            public int compare(String s1, String s2) {
-                // 1. 길이가 다르면 짧은 것이 먼저
-                if (s1.length() != s2.length()) {
-                    return s1.length() - s2.length();
+            public int compare(String o1, String o2) {
+                if(o1.length() != o2.length()){
+                    return o1.length()-o2.length();
+                }else{
+                    int sumAb = sumCompare(o1, o2);
+
+                     if(sumAb != 0){
+                        return sumAb;
+
+                     }else{
+
+                         return o1.compareTo(o2);
+                     }
                 }
-                
-                // 2. 길이가 같으면 숫자의 합 비교
-                int sum1 = getDigitSum(s1);
-                int sum2 = getDigitSum(s2);
-                if (sum1 != sum2) {
-                    return sum1 - sum2;
-                }
-                
-                // 3. 사전순 비교
-                return s1.compareTo(s2);
-            }
-            
-            private int getDigitSum(String s) {
-                int sum = 0;
-                for (char c : s.toCharArray()) {
-                    if (Character.isDigit(c)) {
-                        sum += c - '0';
-                    }
-                }
-                return sum;
+
             }
         });
+    }
 
-        for (String serial : serials) {
-            System.out.println(serial);
+    public static int sumCompare(String o1, String o2){
+        int l = o1.length();
+        int sum1=0,sum2=0;
+        for(int i=0;i<l;i++){
+           if(Character.isDigit(o1.charAt(i))) sum1+=o1.charAt(i)-'0';
+           if(Character.isDigit(o2.charAt(i))) sum2+=o2.charAt(i)-'0';
         }
 
-        sc.close();
+        return sum1 - sum2;
+
     }
 }
