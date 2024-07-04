@@ -1,0 +1,63 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    public static int seq = 0;
+    public static Map<Integer, Integer> order = new HashMap<>();
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int start = Integer.parseInt(st.nextToken());
+
+        ArrayList<Integer>[] routes =new ArrayList[N + 1];
+        boolean[] visited = new boolean[N+1];
+
+        for(int i=1;i<N+1;i++){
+            routes[i] = new ArrayList<>();
+        }
+
+        for(int i=0;i<M;i++){  // s 에서 갈 수있는 노드 e, list에 추가
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e =Integer.parseInt(st.nextToken());
+            routes[s].add(e);
+            routes[e].add(s);
+        }
+
+        for(int i=1;i<N+1;i++){ //list들 정렬
+            if(routes[i].size() > 1){
+                Collections.sort(routes[i]);
+            }
+
+        }
+
+        dfs(routes,visited, start);
+
+        StringBuilder sb = new StringBuilder();
+        for(int i=1;i<N+1;i++){
+            sb.append(order.getOrDefault(i, 0)).append("\n");
+        }
+
+        System.out.print(sb);
+    }
+
+    public static void dfs(ArrayList<Integer>[] routes, boolean[] visited, int point){
+
+        visited[point] = true;
+        order.put(point, ++seq);
+
+
+        for(int goal : routes[point]){
+            if(!visited[goal]){
+                dfs(routes, visited, goal);
+            }
+
+        }
+    }
+
+}
