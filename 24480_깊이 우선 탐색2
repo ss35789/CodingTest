@@ -1,54 +1,67 @@
-import java.io.*;
 import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-public class Main {
-    static int N, M, R;
-    static ArrayList<Integer>[] graph;
-    static int[] order;
-    static int cnt = 1;
-
+// The main method must be in a class named "Main".
+class Main {
+    public static int seq = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        R = Integer.parseInt(st.nextToken());
-
-        graph = new ArrayList[N + 1];
-        order = new int[N + 1];
-
-        for (int i = 1; i <= N; i++) {
-            graph[i] = new ArrayList<>();
+        
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int r = Integer.parseInt(st.nextToken());
+        int[] visitedOrder = new int[n+1];
+        
+        //routes 초기화
+        ArrayList<Integer>[] routes = new ArrayList[n+1];
+        for(int i=1;i<=n;i++){
+            routes[i] = new ArrayList<Integer>();
         }
 
-        for (int i = 0; i < M; i++) {
-            st = new StringTokenizer(br.readLine());
-            int u = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
-            graph[u].add(v);
-            graph[v].add(u);
+        
+        //routes 입력
+        for(int i=0;i<m;i++){
+            st= new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int goal = Integer.parseInt(st.nextToken());
+            
+            routes[start].add(goal);
+            routes[goal].add(start);
+            
         }
 
-        for (int i = 1; i <= N; i++) {
-            Collections.sort(graph[i], Collections.reverseOrder());
+        //routes 내림차순 정렬
+        for(int i=1;i<=n;i++){
+            Collections.sort(routes[i], (a, b) -> b-a);
+            
+        }
+        
+        dfs(visitedOrder, routes, r);
+
+        StringBuilder sb =new StringBuilder();
+        for(int i=1;i<=n;i++){
+            sb.append(visitedOrder[i]).append("\n");
         }
 
-        dfs(R);
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= N; i++) {
-            sb.append(order[i]).append('\n');
-        }
         System.out.print(sb);
     }
-
-    static void dfs(int node) {
-        order[node] = cnt++;
-        for (int next : graph[node]) {
-            if (order[next] == 0) {
-                dfs(next);
-            }
+    public static void dfs(int[] visitedOrder, ArrayList<Integer>[] routes, int start){
+        ArrayList<Integer> route = routes[start];
+        
+        if(visitedOrder[start] == 0){
+            visitedOrder[start] = ++seq;
         }
+
+        for(int i=0;i<route.size();i++){
+            if(visitedOrder[route.get(i)]==0)
+                dfs(visitedOrder, routes, route.get(i));
+        }
+        
+
+
+        
     }
+
 }
