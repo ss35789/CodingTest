@@ -48,14 +48,12 @@ class Main {
         System.out.print(sb);
     }
     public static void dfs(int[] visitedOrder, ArrayList<Integer>[] routes, int start){
-        ArrayList<Integer> route = routes[start];
-        
         
         visitedOrder[start] = ++seq;
 
-        for(int i=0;i<route.size();i++){
-            if(visitedOrder[route.get(i)]==0)
-                dfs(visitedOrder, routes, route.get(i));
+        for(int goal : routes[start]){
+            if(visitedOrder[goal]==0)
+                dfs(visitedOrder, routes, goal);
         }
         
 
