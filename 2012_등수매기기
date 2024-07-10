@@ -1,0 +1,26 @@
+import java.util.*;
+import java.io.*;
+
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[] records = new int[N];
+        long sum = 0; // 불만족도 합
+
+        // 예상 순위 입력
+        for (int i = 0; i < N; i++) {
+            records[i] = Integer.parseInt(br.readLine());
+        }
+
+        // 예상 순위를 정렬
+        Arrays.sort(records);
+
+        // 불만족도 계산
+        for (int i = 0; i < N; i++) {
+            sum +=(long) Math.abs(records[i] - (i + 1));
+        }
+
+        System.out.print(sum);
+    }
+}
