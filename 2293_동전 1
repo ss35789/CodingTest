@@ -1,0 +1,44 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+// The main method must be in a class named "Main".
+class Main {
+    static int answer = 0;
+    static int[] nums;
+    
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+        nums = new int[n];
+        
+        for(int i=0;i<n;i++){
+            nums[i] = Integer.parseInt(br.readLine());
+        }
+
+      
+        solution(k, nums);
+
+        System.out.print(answer);
+    }
+
+     public static void solution(int k, int[] coins){
+         int[] dp = new int[k+1];
+         dp[0] = 1;
+         for(int coin : coins){
+             for(int i = coin ; i<dp.length;i++){
+                 dp[i] += dp[i-coin];
+             }
+         }
+         
+         
+         
+         answer = dp[k];
+     }
+        
+
+    
+}
