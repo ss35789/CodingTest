@@ -19,7 +19,7 @@ class Main {
         }
         
         int length = 0;
-        dp[length++] = arr[0];
+   
 
         for(int i=0;i<n;i++){
             int value = arr[i];
