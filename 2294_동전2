@@ -1,37 +1,34 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
 
-        int n = scanner.nextInt();
-        int k = scanner.nextInt();
-        int[] coins = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            coins[i] = scanner.nextInt();
+        Set<Integer> coinSet = new HashSet<>();
+        for(int i = 0; i < n; i++){
+            coinSet.add(Integer.parseInt(br.readLine()));
         }
 
-        // dp[i]는 i원을 만드는데 필요한 최소 동전 개수
+        Integer[] coins = coinSet.toArray(new Integer[0]);
+
         int[] dp = new int[k + 1];
-        Arrays.fill(dp, k + 1);
+        Arrays.fill(dp, Integer.MAX_VALUE);
         dp[0] = 0;
 
-        for (int i = 1; i <= k; i++) {
-            for (int j = 0; j < n; j++) {
-                if (coins[j] <= i) {
-                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+        for (int coin : coins) {
+            for (int i = coin; i <= k; i++) {
+                if (dp[i - coin] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
                 }
             }
         }
 
-        if (dp[k] > k) {
-            System.out.println(-1);
-        } else {
-            System.out.println(dp[k]);
-        }
-
-        scanner.close();
+        System.out.print(dp[k] == Integer.MAX_VALUE ? -1 : dp[k]);
+        br.close();
     }
 }
