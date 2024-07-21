@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        int N = scanner.nextInt();
+        int K = scanner.nextInt();
+        int MOD = 1000000000;
+        
+        // DP 테이블 초기화
+        int[][] dp = new int[K+1][N+1];
+        
+        // 초기 조건
+        dp[0][0] = 1;
+        
+        // DP 테이블 채우기
+        for (int i = 1; i <= K; i++) {
+            for (int j = 0; j <= N; j++) {
+                for (int x = 0; x <= j; x++) {
+                    dp[i][j] = (dp[i][j] + dp[i-1][j-x]) % MOD;
+                }
+            }
+        }
+        
+        // 결과 출력
+        System.out.println(dp[K][N]);
+    }
+}
