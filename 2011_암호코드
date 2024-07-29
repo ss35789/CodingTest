@@ -1,35 +1,47 @@
 import java.util.Scanner;
 
-public class Main {
+class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String code = sc.next();
-        int n = code.length();
-        
-        if (n == 0 || code.charAt(0) == '0') {
+
+        // 암호가 잘못되어 해석할 수 없는 경우
+        if (code == null || code.length() == 0 || code.charAt(0) == '0') {
             System.out.println(0);
             return;
         }
+
+        int n = code.length();
+        int[] arr = intToArray(code);
         
+        // DP 배열 초기화
         int[] dp = new int[n + 1];
-        dp[0] = 1;  // 빈 문자열을 해석하는 경우의 수
-        dp[1] = 1;  // 첫 글자 하나를 해석하는 경우의 수
+        dp[0] = 1;
+        dp[1] = 1;
 
         for (int i = 2; i <= n; i++) {
-            int oneDigit = Integer.parseInt(code.substring(i - 1, i));
-            int twoDigits = Integer.parseInt(code.substring(i - 2, i));
-            
-            // 한 자리 숫자가 1 이상이면 현재 위치까지의 해석 경우의 수 추가
-            if (oneDigit >= 1) {
-                dp[i] = dp[i - 1] % 1000000;
+            int oneDigit = arr[i - 1];
+            int twoDigits = arr[i - 2] * 10 + arr[i - 1];
+
+            if (oneDigit >= 1 && oneDigit <= 9) {
+                dp[i] = (dp[i] + dp[i - 1]) % 1000000;
             }
-            
-            // 두 자리 숫자가 10 이상 26 이하이면 현재 위치까지의 해석 경우의 수 추가
+
             if (twoDigits >= 10 && twoDigits <= 26) {
                 dp[i] = (dp[i] + dp[i - 2]) % 1000000;
             }
         }
-        
+
         System.out.println(dp[n]);
+    }
+
+    public static int[] intToArray(String code) {
+        int[] result = new int[code.length()];
+
+        for (int i = 0; i < code.length(); i++) {
+            result[i] = Character.getNumericValue(code.charAt(i));
+        }
+
+        return result;
     }
 }
