@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class  Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 테스트 케이스의 개수
+        int T = scanner.nextInt();
+        
+        while (T-- > 0) {
+            // 동전의 가지 수
+            int N = scanner.nextInt();
+            
+            // 동전의 금액들
+            int[] coins = new int[N];
+            for (int i = 0; i < N; i++) {
+                coins[i] = scanner.nextInt();
+            }
+            
+            // 만들어야 할 금액
+            int M = scanner.nextInt();
+            
+            // DP 배열 초기화
+            int[] dp = new int[M + 1];
+            dp[0] = 1; // 0원을 만드는 방법은 1가지 (아무 동전도 사용하지 않음)
+            
+            // DP를 이용한 방법의 수 계산
+            for (int coin : coins) {
+                for (int j = coin; j <= M; j++) {
+                    dp[j] += dp[j - coin];
+                }
+            }
+            
+            // 결과 출력
+            System.out.println(dp[M]);
+        }
+        
+        scanner.close();
+    }
+}
