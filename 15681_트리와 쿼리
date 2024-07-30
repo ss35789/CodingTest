@@ -14,9 +14,9 @@ class Main {
 
         ArrayList<Integer>[] route = new ArrayList[N+1];//간선 배열
         int[] dp = new int[N+1]; // 인덱스별 노드가 서브트리의 정점일 때 자식들 수
-        boolean[] visited = new boolean[N+1];
+        boolean[] visited = new boolean[N+1]; // 방문확인용 
         
-        for(int i=1;i<=N;i++){
+        for(int i=1;i<=N;i++){ // list 배열 초기화
             route[i] = new ArrayList<Integer>();
         }
 
@@ -44,7 +44,7 @@ class Main {
         System.out.println(sb);
     }
 
-    public static int dfs(int node , ArrayList<Integer>[] route, boolean[] visited, int[] dp){
+    public static int dfs(int node , ArrayList<Integer>[] route, boolean[] visited, int[] dp){ // 해당 노드에서 방문한 노드를 제외한 노드들의 size를 더함, dp내부는 계속해서 자식 노드들로 들어가고 자식이 없으면 1을 반환
 
         if(visited[node]){
             return 0;
